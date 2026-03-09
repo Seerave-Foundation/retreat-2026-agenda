@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seerave Retreat 2026 — Personalised Agenda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300;1,9..40,400&display=swap');
+
+  :root {
+    --red: #F24E57;
+    --red-light: #FFDEE0;
+    --red-hover: #D93E47;
+    --seagreen: #2BA6A5;
+    --seagreen-light: #BAD9D9;
+    --seagreen-pale: #E8F4F4;
+    --white: #FFFFFF;
+    --gray: #DEDEDE;
+    --gray-light: #F5F5F5;
+    --black: #191919;
+    --text: #191919;
+    --text-light: #6B7280;
+    --border: #E5E7EB;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--gray-light);
+    color: var(--text);
+    min-height: 100vh;
+    font-weight: 400;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    background: var(--red);
+    color: var(--white);
+    padding: 3rem 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--black) 0%, var(--black) 50%, var(--seagreen) 50%, var(--seagreen) 100%);
+  }
+  .header-logo {
+    margin-bottom: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .header-logo svg {
+    height: 56px;
+    width: auto;
+  }
+  .header h1 {
+    font-size: 2rem;
+    font-weight: 200;
+    letter-spacing: 1px;
+    margin-bottom: 0.3rem;
+    color: var(--black);
+  }
+  .header .subtitle {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--black);
+    opacity: 0.7;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== SELECTOR BAR ===== */
+  .selector-bar {
+    background: var(--white);
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    flex-wrap: wrap;
+  }
+  .selector-bar label {
+    font-weight: 500;
+    font-size: 0.8rem;
+    color: var(--black);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .selector-bar select {
+    flex: 1;
+    min-width: 260px;
+    padding: 0.65rem 1rem;
+    border: 1.5px solid var(--gray);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--white);
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .selector-bar select:focus {
+    outline: none;
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px var(--red-light);
+  }
+
+  /* ===== CONTAINER ===== */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  /* ===== WELCOME STATE ===== */
+  .welcome-msg {
+    display: none;
+    text-align: center;
+    padding: 5rem 2rem;
+    color: var(--text-light);
+  }
+  .welcome-msg .icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1.5rem;
+    border: 2px solid var(--gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+  .welcome-msg p { font-size: 1rem; font-weight: 300; }
+
+  /* ===== TRAVEL BANNER ===== */
+  .travel-banner {
+    display: none;
+    background: var(--white);
+    border-radius: 10px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    border-left: 4px solid var(--red);
+  }
+  .travel-banner-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .travel-banner-text {
+    flex: 1;
+  }
+  .travel-banner-text h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: 0.25rem;
+  }
+  .travel-banner-text p {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+  .travel-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    background: var(--red);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+  .travel-btn:hover {
+    background: var(--red-hover);
+    transform: translateY(-1px);
+  }
+  .travel-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+  .travel-pending {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    background: var(--gray-light);
+    color: var(--text-light);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 400;
+    border: 1px dashed var(--gray);
+  }
+
+  /* ===== PROFILE CARD ===== */
+  .profile-card {
+    display: none;
+    background: var(--white);
+    border-radius: 10px;
+    padding: 1.75rem 2rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .profile-card h2 {
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--black);
+    margin-bottom: 0.2rem;
+  }
+  .profile-card .group-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    background: var(--seagreen-pale);
+    color: var(--seagreen);
+    margin-bottom: 1rem;
+  }
+  .profile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem 2rem;
+  }
+  .profile-item .label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-light);
+    margin-bottom: 0.1rem;
+  }
+  .profile-item .value {
+    font-size: 0.9rem;
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  /* ===== STATS ===== */
+  .stats-bar {
+    display: none;
+    background: var(--white);
+    border-radius: 10px;
+    padding: 1.25rem 2rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .stats-grid {
+    display: flex;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat .num { font-size: 1.75rem; font-weight: 200; color: var(--black); }
+  .stat .lbl { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-light); font-weight: 500; }
+
+  /* ===== SCHEDULE ===== */
+  .schedule-section { display: none; }
+
+  .day-group { margin-bottom: 1.25rem; }
+  .day-header {
+    background: var(--black);
+    color: var(--white);
+    padding: 0.75rem 1.25rem;
+    border-radius: 10px 10px 0 0;
+    font-weight: 300;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .day-header .day-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--red);
+    flex-shrink: 0;
+  }
+
+  .session-card {
+    background: var(--white);
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+    border-left: 3px solid transparent;
+  }
+  .session-card:hover { background: var(--gray-light); }
+  .session-card:last-child {
+    border-radius: 0 0 10px 10px;
+    border-bottom: none;
+  }
+
+  /* Type colors */
+  .session-card.type-Transfer,
+  .session-card.type-Logistics { border-left-color: var(--gray); }
+  .session-card.type-Social,
+  .session-card.type-Dinner { border-left-color: var(--red); }
+  .session-card.type-Lunch { border-left-color: var(--seagreen); }
+  .session-card.type-Workshop,
+  .session-card.type-Plenary { border-left-color: var(--seagreen); }
+  .session-card.type-Meeting { border-left-color: var(--red); }
+
+  .session-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.3rem;
+  }
+  .session-name {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--black);
+  }
+  .session-time {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--seagreen);
+    white-space: nowrap;
+    background: var(--seagreen-pale);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    letter-spacing: 0.3px;
+  }
+  .session-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+    font-size: 0.78rem;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+  .type-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    background: var(--red-light);
+    color: var(--red);
+  }
+  .type-badge.green {
+    background: var(--seagreen-pale);
+    color: var(--seagreen);
+  }
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.7rem;
+    color: var(--text-light);
+    font-weight: 300;
+    letter-spacing: 0.3px;
+  }
+  .footer-line {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--red), var(--seagreen));
+    margin: 0 auto 0.75rem;
+    border-radius: 1px;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 600px) {
+    .header h1 { font-size: 1.4rem; }
+    .selector-bar { padding: 1rem; }
+    .selector-bar select { min-width: 100%; }
+    .container { padding: 1rem 0.5rem; }
+    .profile-grid { grid-template-columns: 1fr 1fr; }
+    .session-top { flex-direction: column; gap: 0.3rem; }
+    .travel-banner-inner { flex-direction: column; align-items: flex-start; }
+  }
+
+  @media print {
+    .selector-bar { display: none; }
+    .header { padding: 1.5rem; }
+    .session-card { break-inside: avoid; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-logo"><svg width="660" height="213" viewBox="0 0 660 213" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M597.025 176.722V131.064H601.373L625.289 167.663V131.064H630V176.722H625.652L601.736 140.123V176.722H597.025Z" fill="white"/><path d="M565.996 177.084C554.762 177.084 544.979 167.3 544.979 153.893C544.979 140.485 554.762 130.702 565.996 130.702C577.229 130.702 587.013 140.485 587.013 153.893C587.013 167.3 577.229 177.084 565.996 177.084ZM565.996 172.736C574.692 172.736 582.302 165.126 582.302 153.893C582.302 142.66 574.692 135.05 565.996 135.05C557.299 135.05 549.689 142.66 549.689 153.893C549.689 165.126 557.299 172.736 565.996 172.736Z" fill="white"/><path d="M530.295 176.722V131.064H535.006V176.722H530.295Z" fill="white"/><path d="M503.237 176.722V135.412H489.105V131.064H522.08V135.412H507.948V176.722H503.237Z" fill="white"/><path d="M450.478 176.722L467.871 131.064H472.219L489.613 176.722H484.54L480.191 165.126H459.899L455.551 176.722H450.478ZM461.638 160.778H478.452L470.045 138.674L461.638 160.778Z" fill="white"/><path d="M413.993 176.722V131.064H425.588C437.909 131.064 447.692 140.848 447.692 153.893C447.692 166.938 437.909 176.722 425.588 176.722H413.993ZM418.704 172.373H425.588C435.01 172.373 442.982 164.401 442.982 153.893C442.982 143.384 435.01 135.412 425.588 135.412H418.704V172.373Z" fill="white"/><path d="M368.101 176.722V131.064H372.449L396.365 167.663V131.064H401.076V176.722H396.727L372.811 140.123V176.722H368.101Z" fill="white"/><path d="M339.63 177.084C329.847 177.084 323.324 170.199 323.324 160.415V131.064H328.035V160.415C328.035 168.025 332.746 172.736 339.63 172.736C346.515 172.736 351.226 168.025 351.226 160.415V131.064H355.937V160.415C355.937 170.199 349.414 177.084 339.63 177.084Z" fill="white"/><path d="M293.02 177.084C281.786 177.084 272.003 167.3 272.003 153.893C272.003 140.485 281.786 130.702 293.02 130.702C304.253 130.702 314.037 140.485 314.037 153.893C314.037 167.3 304.253 177.084 293.02 177.084ZM293.02 172.736C301.716 172.736 309.326 165.126 309.326 153.893C309.326 142.66 301.716 135.05 293.02 135.05C284.323 135.05 276.713 142.66 276.713 153.893C276.713 165.126 284.323 172.736 293.02 172.736Z" fill="white"/><path d="M239.13 176.722V131.064H266.669V135.412H243.841V151.719H262.684V156.067H243.841V176.722H239.13Z" fill="white"/><path d="M260.196 106.547C274.079 106.547 282.089 98.5376 282.089 88.3918C282.089 63.8283 245.778 73.4401 245.778 55.8184C245.778 49.9446 251.118 44.6047 260.196 44.6047C267.672 44.6047 273.011 49.9446 273.545 57.9544H280.487C280.487 46.7406 271.943 38.1968 260.196 38.1968C247.38 38.1968 238.836 46.7406 238.836 55.8184C238.836 79.848 275.147 70.2362 275.147 88.3918C275.147 94.7997 269.808 100.14 260.196 100.14C251.118 100.14 245.778 95.3337 245.244 86.7899H238.302C238.836 98.5376 246.846 106.547 260.196 106.547Z" fill="white"/><path d="M296.011 106.013H338.73V99.6056H302.952V74.5081H334.992V68.1002H302.952V45.1386H337.662V38.7308H296.011V106.013Z" fill="white"/><path d="M353.723 106.013H396.442V99.6056H360.665V74.5081H392.704V68.1002H360.665V45.1386H395.374V38.7308H353.723V106.013Z" fill="white"/><path d="M411.436 106.013H418.378V77.712H433.329L449.349 106.013H457.359L440.805 77.178C440.805 77.178 456.291 73.4401 456.291 58.4884C456.291 47.8086 447.213 38.7308 435.465 38.7308H411.436V106.013ZM418.378 71.3041V45.1386H435.465C443.475 45.1386 449.349 51.0125 449.349 58.4884C449.349 65.4303 443.475 71.3041 435.465 71.3041H418.378Z" fill="white"/><path d="M463.212 106.013H470.688L477.096 88.9258H506.999L513.407 106.013H520.883L495.251 38.7308H488.843L463.212 106.013ZM479.659 82.5179L492.047 49.9446L504.436 82.5179H479.659Z" fill="white"/><path d="M543.335 106.013H550.811L575.375 38.7308H567.899L547.073 96.4017L526.248 38.7308H518.772L543.335 106.013Z" fill="white"/><path d="M587.077 106.013H629.796V99.6056H594.019V74.5081H626.058V68.1002H594.019V45.1386H628.728V38.7308H587.077V106.013Z" fill="white"/><path d="M119.188 57.1646C119.188 57.3248 119.268 67.101 128.403 75.515C128.724 75.8356 130.487 77.1978 130.487 76.7972C129.044 63.4951 119.188 57.1646 119.188 57.1646Z" fill="white"/><path d="M113.419 159.655C109.412 157.892 105.566 157.331 102.28 157.331C95.4689 157.331 90.8212 159.815 90.8212 159.815C90.8212 159.815 99.3954 164.623 111.335 160.857C111.736 160.697 113.819 159.815 113.419 159.655Z" fill="white"/><path d="M132.731 157.171H132.41C124.797 157.251 121.271 159.415 121.271 159.415C122.313 159.976 127.923 161.979 132.49 161.979C137.138 161.979 143.228 160.056 144.029 159.495C144.029 159.495 140.664 157.171 132.731 157.171Z" fill="white"/><path d="M111.255 54.6811C111.656 54.5208 113.819 53.7195 113.339 53.5592C109.332 51.7963 105.486 51.2354 102.2 51.2354C95.3888 51.2354 90.7411 53.7195 90.7411 53.7195C90.7411 53.7195 99.3153 58.4473 111.255 54.6811Z" fill="white"/><path d="M132.169 56.1234C136.817 56.1234 142.907 54.2002 143.709 53.6393C143.709 53.6393 140.343 51.3154 132.41 51.3154H132.089C124.477 51.3956 120.951 53.5592 120.951 53.5592C121.993 54.1201 127.602 56.1234 132.169 56.1234Z" fill="white"/><path d="M52.5975 105.966C48.5909 104.204 44.7445 103.643 41.459 103.643C34.6477 103.643 30 106.127 30 106.127C30 106.127 38.5742 110.935 50.5141 107.168C50.9147 107.008 52.9982 106.127 52.5975 105.966Z" fill="white"/><path d="M204.61 105.966C200.603 104.204 196.757 103.643 193.471 103.643C186.66 103.643 182.012 106.127 182.012 106.127C182.012 106.127 190.586 110.935 202.526 107.168C202.927 107.008 205.091 106.127 204.61 105.966Z" fill="white"/><path d="M119.429 162.62C119.429 162.7 119.509 172.477 128.644 180.971C128.965 181.291 130.728 182.653 130.728 182.253C129.365 168.951 119.429 162.62 119.429 162.62Z" fill="white"/><path d="M104.043 179.929C103.963 180.33 103.642 182.573 103.963 182.333C114.7 174.4 115.101 162.62 115.101 162.62C115.101 162.62 106.687 167.749 104.043 179.929Z" fill="white"/><path d="M113.418 48.3505C113.739 48.671 115.502 50.0333 115.502 49.6326C114.139 36.4106 104.283 30 104.283 30C104.203 30.2404 104.283 39.9365 113.418 48.3505Z" fill="white"/><path d="M119.268 49.7928C130.006 41.8596 130.407 30.0801 130.407 30.0801C130.407 30.0801 121.912 35.1285 119.348 47.3087C119.268 47.7895 118.948 50.0332 119.268 49.7928Z" fill="white"/><path d="M89.218 163.501C89.218 163.582 89.2982 173.358 98.4333 181.852C98.5936 181.932 98.9141 182.253 99.2346 182.493H100.437C98.7538 169.672 89.218 163.501 89.218 163.501Z" fill="white"/><path d="M73.8328 180.89C73.7527 181.131 73.6725 181.932 73.5924 182.573H74.7143C84.4905 174.64 84.8912 163.662 84.8912 163.662C84.8912 163.662 76.4772 168.63 73.8328 180.89Z" fill="white"/><path d="M83.128 159.976C79.1214 158.213 75.275 157.652 71.9895 157.652C65.1782 157.652 60.5305 160.136 60.5305 160.136C60.5305 160.136 69.1048 164.944 81.0446 161.178C81.4452 161.017 83.5287 160.216 83.128 159.976Z" fill="white"/><path d="M134.814 180.65C134.734 180.89 134.574 181.932 134.574 182.573H135.375C145.472 174.64 145.873 163.421 145.873 163.421C145.873 163.421 137.459 168.39 134.814 180.65Z" fill="white"/><path d="M162.62 157.491C155.008 157.571 151.482 159.735 151.482 159.735C152.523 160.296 158.133 162.299 162.7 162.299C167.348 162.299 173.438 160.376 174.239 159.815C174.239 159.815 170.874 157.491 162.941 157.491H162.62Z" fill="white"/><path d="M149.719 163.021C149.719 164.223 150.761 170.072 153.004 174.079C155.008 177.605 158.774 181.291 160.296 182.493H160.857C160.857 181.371 160.537 177.444 157.091 171.595C153.325 165.024 149.719 163.021 149.719 163.021Z" fill="white"/><path d="M69.666 137.138C69.666 137.138 61.252 142.186 58.6076 154.366C58.5275 154.767 58.2069 157.011 58.5275 156.77C69.1852 148.917 69.666 137.138 69.666 137.138Z" fill="white"/><path d="M67.9033 133.532C63.8967 131.769 60.0503 131.208 56.7648 131.208C49.9535 131.208 45.3058 133.692 45.3058 133.692C45.3058 133.692 53.88 138.5 65.8199 134.734C66.1404 134.574 68.304 133.692 67.9033 133.532Z" fill="white"/><path d="M145.392 50.5141C145.392 50.5141 145.793 46.3472 141.706 39.2154C137.94 32.6444 134.254 30.6411 134.254 30.6411C134.254 31.8431 135.295 37.6928 137.539 41.6995C139.783 45.7863 144.511 50.1936 145.392 50.5141Z" fill="white"/><path d="M80.7242 55.0014C81.1248 54.8411 83.2884 54.0398 82.8076 53.8795C78.801 52.1166 74.9546 51.5557 71.6691 51.5557C64.8578 51.5557 60.2101 54.0398 60.2101 54.0398C60.2101 54.0398 68.8645 58.7676 80.7242 55.0014Z" fill="white"/><path d="M82.8878 49.3119C83.2083 49.6324 84.9713 50.9947 84.9713 50.594C83.609 37.2919 73.7526 30.9614 73.7526 30.9614C73.6725 31.1217 73.8328 40.8979 82.8878 49.3119Z" fill="white"/><path d="M88.7376 50.6742C99.4754 42.741 99.8761 30.9614 99.8761 30.9614C99.8761 30.9614 91.4621 36.0098 88.8177 48.19C88.7376 48.6708 88.417 50.9947 88.7376 50.6742Z" fill="white"/><path d="M171.996 55.0014C172.396 54.8411 174.56 54.0398 174.159 53.8795C170.153 52.1166 166.306 51.5557 163.021 51.5557C156.21 51.5557 151.562 54.0398 151.562 54.0398C151.562 54.0398 160.136 58.7676 171.996 55.0014Z" fill="white"/><path d="M149.558 50.6742C160.296 42.741 160.697 30.9614 160.697 30.9614C160.697 30.9614 152.203 36.0098 149.639 48.19C149.478 48.6708 149.158 50.9947 149.558 50.6742Z" fill="white"/><path d="M65.7397 81.686C66.1404 81.5257 68.304 80.7244 67.9033 80.5641C63.8967 78.8012 60.0503 78.2402 56.7648 78.2402C49.9535 78.2402 45.3058 80.7244 45.3058 80.7244C45.3058 80.7244 53.88 85.5324 65.7397 81.686Z" fill="white"/><path d="M67.902 75.996C68.2225 76.3165 69.9854 77.6788 69.9854 77.2781C68.6232 64.0562 58.7668 57.6455 58.7668 57.6455C58.6867 57.8058 58.8469 67.582 67.902 75.996Z" fill="white"/><path d="M52.5971 101.558C52.9176 101.879 54.6805 103.241 54.6805 102.841C53.3183 89.5385 43.4619 83.208 43.4619 83.208C43.4619 83.4484 43.542 93.2246 52.5971 101.558Z" fill="white"/><path d="M51.1548 120.39C54.8409 113.739 54.7608 109.652 54.7608 109.652C53.719 110.293 49.2316 114.139 46.9077 118.146C44.5839 122.153 43.2216 128.403 43.3819 129.365C43.3819 129.365 47.1481 127.522 51.1548 120.39Z" fill="white"/><path d="M180.089 100.597C180.009 100.998 179.689 103.242 180.009 103.001C190.747 95.0681 191.148 83.2886 191.148 83.2886C191.148 83.2886 182.734 88.4171 180.089 100.597Z" fill="white"/><path d="M179.688 109.732C179.688 110.934 180.73 116.784 182.974 120.79C185.218 124.797 189.945 129.204 190.827 129.605C190.827 129.605 191.147 125.438 187.061 118.306C183.374 111.735 179.688 109.732 179.688 109.732Z" fill="white"/><path d="M164.624 74.1535C164.544 74.5541 164.223 76.7979 164.544 76.5575C175.281 68.6243 175.682 56.8447 175.682 56.8447C175.682 56.8447 167.188 61.9732 164.624 74.1535Z" fill="white"/><path d="M177.685 82.3265C182.333 82.3265 188.423 80.4033 189.224 79.8424C189.224 79.8424 185.858 77.5186 177.925 77.5186H177.605C169.992 77.5987 166.466 79.7623 166.466 79.7623C167.508 80.3232 173.117 82.3265 177.685 82.3265Z" fill="white"/><path d="M177.364 130.887C169.752 130.967 166.226 133.131 166.226 133.131C167.268 133.692 172.877 135.695 177.445 135.695C182.092 135.695 188.182 133.772 188.984 133.211C188.984 133.211 185.618 130.887 177.685 130.887H177.364Z" fill="white"/><path d="M164.463 136.417C164.463 137.618 165.505 143.468 167.748 147.475C169.992 151.482 174.72 155.889 175.602 156.29C175.602 156.29 176.002 152.123 171.915 144.991C168.069 138.42 164.463 136.417 164.463 136.417Z" fill="white"/><path d="M147.234 82.4066C151.882 82.4066 157.972 80.4834 158.774 79.9225C158.774 79.9225 155.408 77.5986 147.475 77.5986H147.154C139.542 77.6788 136.016 79.8424 136.016 79.8424C136.977 80.4033 142.587 82.4066 147.234 82.4066Z" fill="white"/><path d="M145.392 102.921C145.392 102.921 145.793 98.7539 141.706 91.6221C137.94 85.0512 134.254 83.0479 134.254 83.0479C134.254 84.2498 135.295 90.0996 137.539 94.1062C139.783 98.193 144.511 102.6 145.392 102.921Z" fill="white"/><path d="M134.333 74.2335C134.253 74.6342 133.932 76.9581 134.253 76.6375C144.991 68.7044 145.391 56.9248 145.391 56.9248C145.391 56.9248 136.977 62.0533 134.333 74.2335Z" fill="white"/><path d="M149.478 56.9248C149.478 57.0851 149.558 66.8613 158.693 75.2753C159.014 75.5958 160.777 76.9581 160.777 76.5574C159.335 63.2553 149.478 56.9248 149.478 56.9248Z" fill="white"/><path d="M80.7242 107.408C81.1248 107.248 83.2884 106.447 82.8076 106.286C78.801 104.523 74.9546 103.962 71.6691 103.962C64.8578 103.962 60.2101 106.447 60.2101 106.447C60.2101 106.447 68.8645 111.254 80.7242 107.408Z" fill="white"/><path d="M84.9712 102.921C83.6089 89.6191 73.7526 83.2886 73.7526 83.2886C73.7526 83.4488 73.8327 93.2251 82.9679 101.639C83.2083 101.96 84.9712 103.402 84.9712 102.921Z" fill="white"/><path d="M88.6575 109.572C88.6575 110.774 89.6992 116.624 91.9429 120.63C94.1866 124.637 98.9145 129.044 99.796 129.445C99.796 129.445 100.197 125.278 96.1098 118.146C92.3436 111.575 88.6575 109.572 88.6575 109.572Z" fill="white"/><path d="M88.8177 100.677C88.7376 101.078 88.417 103.401 88.7376 103.081C99.4754 95.1477 99.8761 83.3682 99.8761 83.3682C99.8761 83.3682 91.4621 88.4967 88.8177 100.677Z" fill="white"/><path d="M73.6723 129.445C73.7524 129.365 77.5187 127.522 81.4452 120.47C85.1313 113.819 85.0512 109.732 85.0512 109.732C84.0094 110.373 79.522 114.219 77.1981 118.226C74.8743 122.233 73.512 128.483 73.6723 129.445Z" fill="white"/><path d="M171.996 107.408C172.396 107.248 174.56 106.447 174.159 106.286C170.153 104.523 166.306 103.962 163.021 103.962C156.21 103.962 151.562 106.447 151.562 106.447C151.562 106.447 160.136 111.254 171.996 107.408Z" fill="white"/><path d="M160.617 129.365C160.617 129.365 161.017 125.198 156.931 118.066C153.164 111.575 149.558 109.492 149.478 109.492V109.572C149.478 110.854 150.52 116.624 152.764 120.55C155.007 124.637 159.735 129.044 160.617 129.365Z" fill="white"/><path d="M149.559 100.677C149.479 101.078 149.158 103.401 149.479 103.081C160.216 95.1477 160.617 83.3682 160.617 83.3682C160.617 83.3682 152.203 88.4967 149.559 100.677Z" fill="white"/><path d="M175.842 102.921C175.842 102.921 176.163 98.7539 172.076 91.6221C168.31 85.0512 164.623 83.0479 164.623 83.0479C164.623 84.2498 165.665 90.0996 167.909 94.1062C170.313 98.193 174.961 102.6 175.842 102.921Z" fill="white"/><path d="M96.0294 80.9643C96.4301 80.804 98.5937 80.0027 98.1129 79.8424C94.1062 78.0795 90.2599 77.5186 86.9744 77.5186C80.1631 77.5186 75.5154 80.0027 75.5154 80.0027C75.5154 80.0027 84.1697 84.8107 96.0294 80.9643Z" fill="white"/><path d="M105.726 79.8424C105.726 79.8424 105.806 79.9225 105.886 79.9225C105.806 79.9225 105.806 80.0027 105.806 80.0027C105.806 80.0027 114.38 84.8107 126.32 81.0444C126.64 80.9643 128.163 80.3232 128.483 80.0027C128.564 80.0027 128.564 79.9225 128.644 79.9225C128.644 79.9225 126.56 78.4802 121.832 77.9192C120.23 77.6788 118.787 77.5186 117.345 77.5186C115.662 77.5186 114.14 77.6788 112.777 77.9192C107.969 78.4802 105.726 79.8424 105.726 79.8424Z" fill="white"/><path d="M104.203 136.497C104.203 136.657 104.284 146.433 113.419 154.847C113.739 155.168 115.502 156.53 115.502 156.129C114.06 142.827 104.203 136.497 104.203 136.497Z" fill="white"/><path d="M130.407 136.577C130.407 136.577 121.912 141.626 119.348 153.806C119.268 154.206 118.948 156.45 119.268 156.21C130.006 148.277 130.407 136.577 130.407 136.577Z" fill="white"/><path d="M128.403 133.131C128.483 133.131 128.483 133.051 128.564 133.051C128.564 133.051 126.48 131.609 121.752 131.048C120.23 130.807 118.707 130.647 117.265 130.647C115.582 130.647 114.059 130.807 112.697 131.048C107.969 131.689 105.726 133.051 105.726 133.051C105.726 133.051 105.806 133.131 105.886 133.131C105.806 133.131 105.806 133.211 105.806 133.211C105.806 133.211 114.38 138.019 126.32 134.253C126.56 134.013 128.083 133.452 128.403 133.131Z" fill="white"/><path d="M147.475 130.727H147.075C139.462 130.807 135.936 132.971 135.936 132.971C136.978 133.532 142.587 135.535 147.155 135.535C151.803 135.535 157.893 133.612 158.694 133.051C158.694 133.051 155.328 130.727 147.475 130.727Z" fill="white"/><path d="M137.539 147.315C139.862 151.321 144.51 155.729 145.392 156.129C145.392 156.129 145.792 151.962 141.705 144.831C137.939 138.26 134.253 136.256 134.253 136.256C134.173 137.458 135.215 143.308 137.539 147.315Z" fill="white"/><path d="M99.8761 136.577C99.8761 136.577 91.4621 141.626 88.8177 153.806C88.7376 154.206 88.417 156.45 88.7376 156.21C99.4754 148.277 99.8761 136.577 99.8761 136.577Z" fill="white"/><path d="M160.697 136.577C160.697 136.577 152.203 141.626 149.638 153.806C149.558 154.206 149.238 156.45 149.558 156.21C160.216 148.277 160.697 136.577 160.697 136.577Z" fill="white"/><path d="M98.1129 132.971C94.1062 131.208 90.2599 130.647 86.9744 130.647C80.1631 130.647 75.5154 133.131 75.5154 133.131C75.5154 133.131 84.0896 137.939 96.0294 134.173C96.4301 134.013 98.5937 133.131 98.1129 132.971Z" fill="white"/><path d="M88.9778 56.9248C88.9778 57.0851 89.0579 66.8613 98.1931 75.2753C98.5136 75.5958 100.277 76.9581 100.277 76.5574C98.8342 63.2553 88.9778 56.9248 88.9778 56.9248Z" fill="white"/><path d="M104.123 74.2335C104.043 74.6342 103.722 76.9581 104.043 76.6375C114.781 68.7044 115.181 56.9248 115.181 56.9248C115.181 56.9248 106.767 62.0533 104.123 74.2335Z" fill="white"/><path d="M73.9128 136.497C73.9128 136.657 73.993 146.433 83.1281 154.847C83.4487 155.168 85.2116 156.53 85.2116 156.129C83.8493 142.827 73.9128 136.497 73.9128 136.497Z" fill="white"/><path d="M67.902 128.403C68.2225 128.724 69.9854 130.086 69.9854 129.685C68.6232 116.463 58.7668 110.053 58.7668 110.053C58.6867 110.213 58.8469 119.989 67.902 128.403Z" fill="white"/><path d="M77.1981 65.1787C74.8743 69.1853 73.512 75.4357 73.6723 76.3973C73.6723 76.3973 77.4385 74.5542 81.4452 67.4224C85.1313 60.7714 85.0512 56.6846 85.0512 56.6846C84.0094 57.3256 79.4419 61.172 77.1981 65.1787Z" fill="white"/><path d="M69.666 83.5283C69.666 83.5283 61.252 88.5767 58.6076 100.757C58.5275 101.158 58.2069 103.401 58.5275 103.161C69.1852 95.3079 69.666 83.5283 69.666 83.5283Z" fill="white"/><path d="M142.186 120.47C145.872 113.819 145.792 109.732 145.792 109.732C144.751 110.373 140.263 114.219 137.939 118.226C135.615 122.233 134.253 128.483 134.413 129.445C134.494 129.365 138.26 127.522 142.186 120.47Z" fill="white"/><path d="M172.476 120.711C176.163 114.06 176.082 109.973 176.082 109.973C175.041 110.614 170.553 114.461 168.229 118.467C165.906 122.474 164.543 128.724 164.704 129.686C164.704 129.686 168.47 127.843 172.476 120.711Z" fill="white"/></svg></div>
+  <h1>RETREAT 2026</h1>
+  <div class="subtitle" id="header-subtitle">15 &ndash; 20 November &nbsp;|&nbsp; Zurich, Switzerland &nbsp;|&nbsp; Personalised Agenda</div>
+</div>
+
+<div class="selector-bar">
+  <label for="participant-select">Participant</label>
+  <select id="participant-select">
+    <option value="">Select your name...</option>
+  </select>
+</div>
+
+<div class="container">
+  <div class="welcome-msg" id="welcome">
+    <div class="icon">&#x1F4C5;</div>
+    <p>Select your name above to view your personalised retreat agenda.</p>
+  </div>
+
+  <div class="travel-banner" id="travel-banner"></div>
+  <div class="profile-card" id="profile"></div>
+  <div class="stats-bar" id="stats"></div>
+  <div class="schedule-section" id="schedule"></div>
+</div>
+
+<div class="footer">
+  <div class="footer-line"></div>
+  Seerave Foundation &bull; Retreat 2026 &bull; Confidential &bull; <a href="https://seerave.org/privacy-policy/" target="_blank" rel="noopener" style="color: var(--seagreen); text-decoration: none;">Privacy Policy</a>
+</div>
+
+<script>
+const PARTICIPANTS = [{"name": "Bertrand Routy", "email": "bertrand.routy@umontreal.ca", "institution": "CR CHUM", "group_detail": "Principle Investigator", "group_id": "G1", "group_name": "Data/Science PIs + Working Group", "programme_days": "Monday to Friday", "venues": "FIVE, Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Arielle Elkrief", "email": "arielle.elkrief.med@ssss.gouv.qc.ca", "institution": "CR CHUM", "group_detail": "Principle Investigator", "group_id": "G1", "group_name": "Data/Science PIs + Working Group", "programme_days": "Monday to Friday", "venues": "FIVE, Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Laurence ZITVOGEL", "email": "laurence.zitvogel@orange.fr", "institution": "IGR", "group_detail": "Principle Investigator", "group_id": "G1", "group_name": "Data/Science PIs + Working Group", "programme_days": "Monday to Friday", "venues": "FIVE, Swiss Re, Belvoir", "room_type": "Double", "travel_link": ""}, {"name": "Guido KROEMER", "email": "kroemer@orange.fr", "institution": "IGR", "group_detail": "Principle Investigator", "group_id": "G2", "group_name": "Data/Science PIs", "programme_days": "Monday to Friday", "venues": "FIVE, Swiss Re, Belvoir", "room_type": "Suite", "travel_link": ""}, {"name": "Lisa Derosa", "email": "Lisa.DEROSA@gustaveroussy.fr", "institution": "IGR", "group_detail": "Principle Investigator", "group_id": "G1", "group_name": "Data/Science PIs + Working Group", "programme_days": "Monday to Friday", "venues": "FIVE, Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Nicola Segata", "email": "nicola.segata@gmail.com", "institution": "University of Trento", "group_detail": "Principle Investigator", "group_id": "G1", "group_name": "Data/Science PIs + Working Group", "programme_days": "Monday to Friday", "venues": "FIVE, Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Jennifer Leigh McQuade", "email": "JMcQuade@mdanderson.org", "institution": "MD Anderson", "group_detail": "Principle Investigator", "group_id": "G1", "group_name": "Data/Science PIs + Working Group", "programme_days": "Monday to Friday", "venues": "FIVE, Swiss Re, Belvoir", "room_type": "Double", "travel_link": ""}, {"name": "Andy Futreal", "email": "AFutreal@mdanderson.org", "institution": "MD Anderson", "group_detail": "Principle Investigator", "group_id": "G2", "group_name": "Data/Science PIs", "programme_days": "Monday to Friday", "venues": "FIVE, Swiss Re, Belvoir", "room_type": "Double", "travel_link": ""}, {"name": "Rinse Weersma", "email": "r.k.weersma@umcg.nl", "institution": "UMCG", "group_detail": "Principle Investigator", "group_id": "G2", "group_name": "Data/Science PIs", "programme_days": "Monday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Geke Hospers", "email": "g.a.p.hospers@umcg.nl", "institution": "UMCG", "group_detail": "Principle Investigator", "group_id": "G2", "group_name": "Data/Science PIs", "programme_days": "Monday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Johannes Bj\u00f6rk", "email": "bjork.johannes@gmail.com", "institution": "UMCG", "group_detail": "Fellow", "group_id": "G2", "group_name": "Data/Science PIs", "programme_days": "Monday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Jacco de Haan", "email": "j.j.de.haan@umcg.nl", "institution": "UMCG", "group_detail": "Principle Investigator", "group_id": "G2", "group_name": "Data/Science PIs", "programme_days": "Monday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Gianluca Ianiro", "email": "gianluca.ianiro@hotmail.it", "institution": "Universit\u00e0 Cattolica del Sacro Cuore", "group_detail": "Principle Investigator", "group_id": "G1", "group_name": "Data/Science PIs + Working Group", "programme_days": "Monday to Friday", "venues": "FIVE, Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Franziska Deutschbein", "email": "franziska.deutschbein@gmail.com", "institution": "Universit\u00e0 Cattolica del Sacro Cuore", "group_detail": "Fellow (Catalytic Grant)", "group_id": "G3", "group_name": "Data/Science Affiliates & Collaborators", "programme_days": "Monday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Julie Malo", "email": "julie.malo.chum@ssss.gouv.qc.ca", "institution": "Montreal CRCHUM", "group_detail": "Fellow 2.0: Data Manager", "group_id": "G2", "group_name": "Data/Science PIs", "programme_days": "Monday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Naama Geva-Zatorsky", "email": "naama_gz@technion.ac.il", "institution": "Technion", "group_detail": "Principle Investigator", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Eran Segal", "email": "Eran.Segal@weizmann.ac.il", "institution": "Weizmann Institute", "group_detail": "Principle Investigator", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Jack Gilbert", "email": "jagilbert@health.ucsd.edu", "institution": "UCSD", "group_detail": "Principle Investigator", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Marine Fidelle", "email": "Marine.FIDELLE@gustaveroussy.fr", "institution": "IRG", "group_detail": "Fellow", "group_id": "G3", "group_name": "Data/Science Affiliates & Collaborators", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Ella Reich", "email": "ella@reich.be", "institution": "IGR", "group_detail": "Fellow (Peripheral)", "group_id": "G2", "group_name": "Data/Science PIs", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Meriem Messaoudene", "email": "meriem.messaoudene@umontreal.ca", "institution": "Montreal CRCHUM", "group_detail": "Fellow", "group_id": "G3", "group_name": "Data/Science Affiliates & Collaborators", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Emelie Oosterhout", "email": "e.oosterhout@umcg.nl", "institution": "UMCG", "group_detail": "Fellow", "group_id": "G2", "group_name": "Data/Science PIs", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Nazli Dizman", "email": "ndizman@mdanderson.org", "institution": "MDA", "group_detail": "Fellow 2.0: Data Manager", "group_id": "G2", "group_name": "Data/Science PIs", "programme_days": "Monday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Karla Lee", "email": "karla.lee@nhs.net", "institution": "KCL", "group_detail": "Fellow Alumni", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Jonathan Pol", "email": "pol_jonathan@yahoo.fr", "institution": "IGR", "group_detail": "Fellow Alumni", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Thomas Vogl", "email": "thomas.vogl@meduniwien.ac.at", "institution": "Uni Wien", "group_detail": "Fellow Alumni", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Luc Verhelst", "email": "luc@verelst.ch", "institution": "Droia", "group_detail": "Pillar 3: Innovators", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Andres Cubillos", "email": "andres@floreybiosciences.com", "institution": "Florey", "group_detail": "Pillar 3: Innovators", "group_id": "G7", "group_name": "Venture & Strategic Partners", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Raphael Gayet", "email": "raphael@floreybiosciences.com", "institution": "Florey", "group_detail": "Pillar 3: Innovators", "group_id": "G7", "group_name": "Venture & Strategic Partners", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Peter Hutt", "email": "peterbartonhutt@gmail.com", "institution": "Florey", "group_detail": "Pillar 3: Innovators", "group_id": "G7", "group_name": "Venture & Strategic Partners", "programme_days": "Monday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Double", "travel_link": ""}, {"name": "Cathrine Hutt", "email": "cadamshutt@rdrsol.com", "institution": "Florey", "group_detail": "Pillar 3: Innovators", "group_id": "G7", "group_name": "Venture & Strategic Partners", "programme_days": "Monday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Double", "travel_link": ""}, {"name": "Romain Daillere", "email": "r.daillere@biocodex.fr", "institution": "Biocodex", "group_detail": "Pillar 3: Strategic Partners", "group_id": "G7", "group_name": "Venture & Strategic Partners", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Oana Bernard", "email": "o.bernard@biocodex.fr", "institution": "Biocodex", "group_detail": "Pillar 3: Strategic Partners", "group_id": "G7", "group_name": "Venture & Strategic Partners", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Carine Francois", "email": "c.francois@biocodex.fr", "institution": "Biocodex", "group_detail": "Pillar 3: Strategic Partners", "group_id": "G7", "group_name": "Venture & Strategic Partners", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Nicolas COUDURIER", "email": "", "institution": "", "group_detail": "Pillar 3: Strategic Partners", "group_id": "G7", "group_name": "Venture & Strategic Partners", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "JP/ Aurora", "email": "", "institution": "", "group_detail": "Pillar 3: Strategic Partners", "group_id": "G7", "group_name": "Venture & Strategic Partners", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Isabelle De Cremoux", "email": "Isabelle.DeCremoux@seventure.fr", "institution": "Seventure", "group_detail": "Pillar 3: Investors", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Christina Ulardic", "email": "christina@astanor.com", "institution": "Astanor", "group_detail": "Pillar 3: Investors", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Selena Ahmed", "email": "Selena.Ahmed@heart.org", "institution": "PTFI", "group_detail": "Community: Collaborators", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "John de La Parra", "email": "jdelaparra@rockfound.org", "institution": "PTFI", "group_detail": "Community: Collaborators", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Roy Steiner", "email": "rsteiner@rockfound.org", "institution": "PTFI", "group_detail": "Community: Collaborators", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Reggie\u00a0Annan", "email": "director.knustptfi@knust.edu.gh", "institution": "PTFI /KNUST", "group_detail": "Community: Collaborators", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Endale\u00a0Amare", "email": "endale.amarek@gmail.com", "institution": "PTFI", "group_detail": "Community: Collaborators", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Dominik Steiger", "email": "dominik.steiger@microbiotavault.org", "institution": "EvalueScience", "group_detail": "Community: Collaborators", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "No room", "travel_link": ""}, {"name": "Maria Gloria Dominguez", "email": "mg.dominguez-bello@rutgers.edu", "institution": "Rutgers", "group_detail": "Community: Collaborators", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Tuesday to Friday", "venues": "FIVE, Swiss Re, Belvoir", "room_type": "Double", "travel_link": ""}, {"name": "Martin Blaser", "email": "martin.blaser@cabm.rutgers.edu", "institution": "Rutgers", "group_detail": "Seerave Advisor and WG", "group_id": "G1", "group_name": "Data/Science PIs + Working Group", "programme_days": "Tuesday to Friday", "venues": "FIVE, Swiss Re, Belvoir", "room_type": "Double", "travel_link": ""}, {"name": "Lydie Meheus", "email": "Lydie.Meheus@anticancerfund.org", "institution": "ACF", "group_detail": "Community: Partner Orgs", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Marc Hulbert", "email": "mhurlbert@curemelanoma.org", "institution": "MRA", "group_detail": "Community: Partner Orgs", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Pascale Vonmont", "email": "pascale.vonmont@grstiftung.ch", "institution": "Gebert R\u00fcf Stiftung", "group_detail": "Community: Partner Orgs", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Valerie Remoquillo-Jenni", "email": "valerie.remoquillo-jenni@fourfold.ch", "institution": "Fourfold Foundation", "group_detail": "Community: Partner Orgs", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Marcel van de Wouw", "email": "marcel.vandewouw@westonfoundation.ca", "institution": "Weston", "group_detail": "Community: Partner Orgs", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Alexander Alencar", "email": "alexandre.alencar@risingtide.ch", "institution": "Rising Tide", "group_detail": "Community: Partner Orgs", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Laura Bolte", "email": "l.a.bolte@umcg.nl", "institution": "UMCG", "group_detail": "Seerave Team, Fellow Alumni", "group_id": "G6", "group_name": "Seerave Team", "programme_days": "Monday to Friday", "venues": "FIVE, Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Laura M\u00e4hlmann", "email": "laura.maehlmann@seerave.org", "institution": "Seerave", "group_detail": "Seerave Team", "group_id": "G6", "group_name": "Seerave Team", "programme_days": "Sunday to Friday", "venues": "FIVE, Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Andrew Thomas", "email": "andrewmaltezthomas@gmail.com", "institution": "Seerave", "group_detail": "Seerave Team, Fellow Alumni", "group_id": "G2", "group_name": "Data/Science PIs", "programme_days": "Monday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "David Rees", "email": "david.rees@seerave.org", "institution": "Seerave", "group_detail": "Seerave Team", "group_id": "G6", "group_name": "Seerave Team", "programme_days": "Sunday to Friday", "venues": "FIVE, Swiss Re, Belvoir", "room_type": "Double", "travel_link": ""}, {"name": "Eva Rees", "email": "", "institution": "Seerave", "group_detail": "Seerave Team", "group_id": "G6", "group_name": "Seerave Team", "programme_days": "Sunday to Friday", "venues": "FIVE, Swiss Re, Belvoir", "room_type": "Double", "travel_link": ""}, {"name": "Mark Smith", "email": "markburnhamsmith@gmail.com", "institution": "Seerave", "group_detail": "Seerave Team", "group_id": "G6", "group_name": "Seerave Team", "programme_days": "Sunday to Friday", "venues": "FIVE, Swiss Re, Belvoir", "room_type": "Double", "travel_link": ""}, {"name": "Carolyn Edelstein", "email": "carolyn.edelstein@gmail.com", "institution": "Seerave", "group_detail": "Seerave Team", "group_id": "G6", "group_name": "Seerave Team", "programme_days": "Sunday to Friday", "venues": "FIVE, Swiss Re, Belvoir", "room_type": "Double", "travel_link": ""}, {"name": "Manuel Fankhauser", "email": "manuel.fankhauser@seerave.org", "institution": "Seerave", "group_detail": "Seerave Team", "group_id": "G6", "group_name": "Seerave Team", "programme_days": "Sunday to Friday", "venues": "FIVE, Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Elisabeth Rees", "email": "elisabeth@seerave.org", "institution": "Seerave", "group_detail": "Seerave Team", "group_id": "G6", "group_name": "Seerave Team", "programme_days": "Sunday to Friday", "venues": "FIVE, Swiss Re, Belvoir", "room_type": "Double", "travel_link": ""}, {"name": "Ainara Bujanda", "email": "ainara.bujanda@seerave.org", "institution": "Seerave", "group_detail": "Seerave Team", "group_id": "G6", "group_name": "Seerave Team", "programme_days": "Monday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Jo Ensor (likely no show)", "email": "jo@philanthropyinsight.co.uk", "institution": "", "group_detail": "Seerave Council Member", "group_id": "G6", "group_name": "Seerave Team", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Darren English", "email": "denglish@baccata.co.je", "institution": "Baccata", "group_detail": "Seerave Council Member", "group_id": "G6", "group_name": "Seerave Team", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Stephen Whale", "email": "swhale@baccata.co.je", "institution": "Baccata", "group_detail": "Seerave Council Member", "group_id": "G6", "group_name": "Seerave Team", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Chris Rees", "email": "christopher.rees@seerave.org", "institution": "Seerave", "group_detail": "Seerave Council Member", "group_id": "G6", "group_name": "Seerave Team", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Double", "travel_link": ""}, {"name": "Per Falk", "email": "per@gunnarfalk.com", "institution": "", "group_detail": "Seerave Advisor", "group_id": "G6", "group_name": "Seerave Team", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Joel Colombo", "email": "joelcolombo@gmail.com", "institution": "", "group_detail": "Community: Partner Orgs", "group_id": "G6", "group_name": "Seerave Team", "programme_days": "Sunday to Thursday?", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Rossella Fontana", "email": "ross.fontana@gmail.com", "institution": "", "group_detail": "Team Alumni", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Timothy/Tim Spector", "email": "tim.spector@kcl.ac.uk", "institution": "KCL", "group_detail": "Principle Investigator Alumni", "group_id": "G2", "group_name": "Data/Science PIs", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Double", "travel_link": ""}, {"name": "Veronique Bataille", "email": "bataille@doctors.org.uk", "institution": "KCL", "group_detail": "Principle Investigator Alumni", "group_id": "G2", "group_name": "Data/Science PIs", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Double", "travel_link": ""}, {"name": "Steven Lawrence", "email": "steve@yerosha.com", "institution": "Invisible Extinction", "group_detail": "Community: Collaborators", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Sarah Schenk", "email": "sarahschenckfilms@gmail.com", "institution": "Invisible Extinction", "group_detail": "Community: Collaborators", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Rob Knight", "email": "robknight@eng.ucsd.edu", "institution": "", "group_detail": "Community: Collaborators", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "NEW FDF CEO?", "email": "TBD", "institution": "FdF", "group_detail": "Community: Partner Orgs", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Judy Bray", "email": "Judy.Bray@cancer.ca", "institution": "CCS", "group_detail": "Community: Partner Orgs", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Sandra Sulser", "email": "sandra.sulser@usz-foundation.com", "institution": "", "group_detail": "Team Alumni, Community: Partner Orgs", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "No room", "travel_link": ""}, {"name": "Thomas Gurry", "email": "thomas@vestabiosciences.com", "institution": "HUG", "group_detail": "Principle Investigator", "group_id": "G7", "group_name": "Venture & Strategic Partners", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "John", "email": "", "institution": "", "group_detail": "Seerave Family", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Double", "travel_link": ""}, {"name": "Milton", "email": "", "institution": "", "group_detail": "Seerave Family", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Double", "travel_link": ""}, {"name": "Junia", "email": "", "institution": "", "group_detail": "Seerave Family", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Double", "travel_link": ""}, {"name": "Vincent", "email": "", "institution": "", "group_detail": "Seerave Family", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Double", "travel_link": ""}, {"name": "Marie B. Rees", "email": "", "institution": "", "group_detail": "Seerave Family", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Double", "travel_link": ""}, {"name": "Joshua Tran", "email": "jtt010@health.ucsd.edu", "institution": "UCSD", "group_detail": "Fellow", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "Tuesday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Noa Mandelbaum", "email": "noa6207@gmail.com", "institution": "Technion", "group_detail": "Fellow Alumni", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Michal Rein", "email": "michalrein.diet@gmail.com", "institution": "Weizmann", "group_detail": "Fellow", "group_id": "G2", "group_name": "Data/Science PIs", "programme_days": "", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Roni Keshet", "email": "roni.keshet@campus.technion.ac.il", "institution": "", "group_detail": "Fellow Alumni", "group_id": "G2", "group_name": "Data/Science PIs", "programme_days": "", "venues": "Swiss Re", "room_type": "No room", "travel_link": ""}, {"name": "Adina Weinberger", "email": "adina.weinberger@weizmann.ac.il", "institution": "Weizmann", "group_detail": "Fellow", "group_id": "G2", "group_name": "Data/Science PIs", "programme_days": "", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Rachel Herren", "email": "", "institution": "", "group_detail": "", "group_id": "G2", "group_name": "Data/Science PIs", "programme_days": "", "venues": "Swiss Re", "room_type": "No room", "travel_link": ""}, {"name": "Steve Mao", "email": "smao@cell.com", "institution": "", "group_detail": "Journal Editors", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Michael Lesnik", "email": "mlesnick@pm.me", "institution": "", "group_detail": "Community: Collaborators", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Claudia Harner-Jay", "email": "charnerjay@gmail.com", "institution": "", "group_detail": "Community: Collaborators", "group_id": "G4", "group_name": "Family, Friends, Alumni & CP", "programme_days": "", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Kevin Honaker", "email": "khonaker@biomesense.com", "institution": "Biomesense", "group_detail": "Pillar 3: Innovators", "group_id": "G7", "group_name": "Venture & Strategic Partners", "programme_days": "", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Eric de La Fortelle", "email": "eric.delafortelle@cathaycapital.com", "institution": "Cathay Capital", "group_detail": "Pillar 3: Innovators", "group_id": "G7", "group_name": "Venture & Strategic Partners", "programme_days": "Wednesday to Thursday", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Chiel Nijboer", "email": "TBD", "institution": "UMCG", "group_detail": "Fellow 2.0: Data Manager", "group_id": "G2", "group_name": "Data/Science PIs", "programme_days": "Monday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "IGR DATA MANAGER", "email": "TBD", "institution": "IGR", "group_detail": "Fellow 2.0: Data Manager", "group_id": "G2", "group_name": "Data/Science PIs", "programme_days": "Monday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "FLOREY CEO", "email": "", "institution": "Florey", "group_detail": "Pillar 3: Innovators", "group_id": "G7", "group_name": "Venture & Strategic Partners", "programme_days": "", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "NEWCO CEO", "email": "", "institution": "NewCo", "group_detail": "Pillar 3: Innovators", "group_id": "G7", "group_name": "Venture & Strategic Partners", "programme_days": "", "venues": "Swiss Re", "room_type": "Single", "travel_link": ""}, {"name": "Jennifer Wargo", "email": "JWargo@mdanderson.org", "institution": "MD Anderson", "group_detail": "Community: Collaborators", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Nadim Ajami", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Sandrine Aspeslagh", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Erez Baruch", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Hossein Borghaei", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Marcellus Rudolf Maria Van den Brink", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Sandra Bullman", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Eugene \"Gene\" Chang", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Stephane Champiat", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Toni Choueiri", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Philippa Gail Corrie", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Diwakar Davar", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Pierre-Oliver Gaudreau", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Emma Geertruida De Vries", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Wendy Garett", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Robert Jenq", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Monika Krzyzanowska", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Trevor Lawley", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Florencia McAllister", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Kathy McCoy", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Cliff McDonald", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Oriana Miltiadous", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Pamela\u202fOhashi", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Sumanta Pal", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "David Pinato", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Tsoni Peled", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Caroline Robert", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Marco Ruella", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Adam Schoenfeld", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Melody Smith", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Harry Sokol", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Jens Walter", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Susan Seo", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Urvi Shah", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Nezi Luigi", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Tintelnot Joseph/MR", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "Joao Monteiro", "email": "", "institution": "", "group_detail": "Working Group", "group_id": "G5", "group_name": "Working Group", "programme_days": "Wednesday to Friday", "venues": "Swiss Re, Belvoir", "room_type": "Single", "travel_link": ""}, {"name": "=COUNTA(B3:B137)", "email": "", "institution": "", "group_detail": "", "group_id": "", "group_name": "", "programme_days": "", "venues": "", "room_type": "", "travel_link": ""}];
+const SESSIONS = [{"day": "Sun 15 Nov", "session": "Seerave Team Arrival", "type": "Logistics", "start": "All Day", "end": "", "venue": "FIVE", "groups": "G6", "lead": "Elisabeth, Laura", "notes": "Arrival Team: Elisabeth, Laura"}, {"day": "Mon 16 Nov", "session": "Arrival & Check-in of Data Pillar", "type": "Logistics", "start": "12:00", "end": "", "venue": "FIVE", "groups": "G1, G2, G6", "lead": "Laura", "notes": "Data pillar arrival and check-in"}, {"day": "Mon 16 Nov", "session": "Data Pillar Block 1", "type": "Plenary", "start": "14:00", "end": "18:30", "venue": "FIVE - Ballroom", "groups": "G1, G2, G6", "lead": "Laura", "notes": "Welcome Reception, Overall Updates, 5x30min Site Updates, Data Manager updates, Biostatistician, PI broader context"}, {"day": "Mon 16 Nov", "session": "Welcome Apero", "type": "Social", "start": "18:30", "end": "19:30", "venue": "FIVE - Ballroom Foyer", "groups": "G1, G2, G6", "lead": "Laura", "notes": "Welcoming Guests, What's on tomorrow, Logistics"}, {"day": "Mon 16 Nov", "session": "Data Pillar Dinner", "type": "Dinner", "start": "19:30", "end": "22:00", "venue": "Restaurant FIVE Soul Street", "groups": "G1, G2, G6", "lead": "Laura", "notes": "Intimate Data Pillar Dinner, 20 + 5-7 Team"}, {"day": "Mon 16 Nov", "session": "Arrival & Check-in of Venture Pillar", "type": "Logistics", "start": "18:00", "end": "", "venue": "FIVE", "groups": "G7", "lead": "Elisabeth", "notes": "Venture pillar arrival"}, {"day": "Mon 16 Nov", "session": "Venture Dinner", "type": "Dinner", "start": "19:30", "end": "22:00", "venue": "TBC", "groups": "G7", "lead": "Mark", "notes": "Florey + PharmaBiome groups, Restaurant FIVE or different venue"}, {"day": "Tue 17 Nov", "session": "Transfer FIVE to SwissRe", "type": "Transfer", "start": "08:30", "end": "", "venue": "FIVE to Swiss Re", "groups": "G1, G2, G6", "lead": "Shubhangi", "notes": "Transfer of 27 Data People"}, {"day": "Tue 17 Nov", "session": "Oncobiome Atlas & Consortium Block 1", "type": "Workshop", "start": "09:00", "end": "12:30", "venue": "Swiss Re", "groups": "G1, G2, G6", "lead": "Laura", "notes": "Data Analysis Subcommittee: Presentation on next analytical strategies. Round-Table setup, N=20+5-7 Team"}, {"day": "Tue 17 Nov", "session": "Data Lunch Tuesday", "type": "Lunch", "start": "12:30", "end": "13:30", "venue": "FIVE", "groups": "G1, G2, G6", "lead": "Laura", "notes": "Lunch only DATA, 27 people, at FIVE"}, {"day": "Tue 17 Nov", "session": "Oncobiome Atlas & Consortium Block 2", "type": "Workshop", "start": "13:30", "end": "14:45", "venue": "Swiss Re", "groups": "G1, G2, G6", "lead": "Laura", "notes": "Outlook and next steps, Next Iterations and Research Strategies for Phase 2"}, {"day": "Tue 17 Nov", "session": "Venture Session: Board Meeting Florey", "type": "Meeting", "start": "09:00", "end": "12:30", "venue": "Boardroom FIVE", "groups": "G7", "lead": "Mark", "notes": "N=5-7 (Andres, Raph, Peter, Cristina, Mark, +2), U-Shape setup"}, {"day": "Tue 17 Nov", "session": "Venture Lunch Tuesday", "type": "Lunch", "start": "12:00", "end": "13:00", "venue": "FIVE", "groups": "G7", "lead": "Mark", "notes": "Lunch only VENTURE"}, {"day": "Tue 17 Nov", "session": "Board Meeting Florey / PharmaBiome NewCo", "type": "Meeting", "start": "13:30", "end": "15:00", "venue": "Boardroom FIVE", "groups": "G7", "lead": "Mark", "notes": "PharmaBiome NewCo Discussions, N=7-11"}, {"day": "Tue 17 Nov", "session": "Transfer SwissRe to FIVE", "type": "Transfer", "start": "15:00", "end": "", "venue": "Swiss Re to FIVE", "groups": "G1, G2, G6", "lead": "Elisabeth", "notes": "Transfer back of 27 Data People"}, {"day": "Tue 17 Nov", "session": "Apero & Poster Session", "type": "Social", "start": "15:00", "end": "18:00", "venue": "FIVE", "groups": "G1, G2, G6, G3, G4, G7", "lead": "Manuel", "notes": "Welcome Data, Venture, Scientific Fellows + friends/family. Poster Session Mixed Science. Open to broad group."}, {"day": "Tue 17 Nov", "session": "Arrival & Check-in of Alumni / Scientific Fellows", "type": "Logistics", "start": "14:00", "end": "", "venue": "FIVE", "groups": "G3, G4, G7", "lead": "Shubhangi", "notes": "Welcome, help people check in"}, {"day": "Tue 17 Nov", "session": "Apero Tuesday Evening", "type": "Social", "start": "18:00", "end": "19:00", "venue": "FIVE", "groups": "G1, G2, G6", "lead": "", "notes": "Evening Apero"}, {"day": "Tue 17 Nov", "session": "Informal Dinner", "type": "Dinner", "start": "19:30", "end": "22:00", "venue": "FIVE penthouse", "groups": "G1, G2, G6, G3, G4, G7, G8", "lead": "Manuel", "notes": "Informal dinner, last retreat group. Artistic contribution, light relaxed atmosphere"}, {"day": "Wed 18 Nov", "session": "Transfer FIVE to SwissRe", "type": "Transfer", "start": "08:30", "end": "", "venue": "FIVE to Swiss Re", "groups": "G1, G2, G3, G4, G6, G7, G8", "lead": "Shubhangi", "notes": "Transfer for all groups"}, {"day": "Wed 18 Nov", "session": "Morning Festivity Day", "type": "Plenary", "start": "09:30", "end": "12:30", "venue": "Forum A+B Swiss Re", "groups": "G1, G2, G3, G4, G6, G7, G8", "lead": "Manuel", "notes": "Seerave Historic context (30min), THE WHY: What is the problem (1h), THE HOW: How do we solve it scientifically (2h)"}, {"day": "Wed 18 Nov", "session": "Lunch Wednesday", "type": "Lunch", "start": "12:30", "end": "13:30", "venue": "Swiss Re / Buffet", "groups": "G1, G2, G3, G4, G6, G7, G8", "lead": "", "notes": "Buffet Lunch at Swiss Re"}, {"day": "Wed 18 Nov", "session": "Afternoon Festivity Day", "type": "Plenary", "start": "14:00", "end": "16:00", "venue": "Forum A+B Swiss Re", "groups": "G1, G2, G3, G4, G5, G6, G7, G8", "lead": "Manuel", "notes": "THE WHAT: What sort of solutions are on the horizon?"}, {"day": "Wed 18 Nov", "session": "Apero Festivity Day", "type": "Social", "start": "17:00", "end": "19:00", "venue": "Swiss Re Foyer", "groups": "G1, G2, G3, G4, G5, G6, G7, G8, G3", "lead": "Laura", "notes": "POSITIVE VISION AHEAD: Role of philanthropy. Wrap up and announcement of exciting new initiative"}, {"day": "Wed 18 Nov", "session": "Anniversary Dinner / Gala Dinner", "type": "Dinner", "start": "19:30", "end": "22:00", "venue": "Swiss Re Dinner Room", "groups": "G1, G2, G3, G4, G5, G6, G7, G8", "lead": "Manuel", "notes": "Gala Dinner. Short interventions, 15min gift video, Spektakel, Rees family speeches"}, {"day": "Wed 18 Nov", "session": "Transfer SwissRe to FIVE", "type": "Transfer", "start": "22:30", "end": "23:00", "venue": "Swiss Re to FIVE", "groups": "All", "lead": "", "notes": "2 slots: 22:30 and 23:00. Bar at FIVE is after-party"}, {"day": "Thu 19 Nov", "session": "Transfer FIVE to SwissRe", "type": "Transfer", "start": "08:00", "end": "", "venue": "FIVE to Swiss Re", "groups": "G6", "lead": "Shubhangi", "notes": "Team transfer"}, {"day": "Thu 19 Nov", "session": "Bad Weather: Transfer Belvoir to SwissRe", "type": "Transfer", "start": "08:30", "end": "", "venue": "Belvoir to Swiss Re", "groups": "G6", "lead": "Shubhangi", "notes": "Bad weather backup transfer"}, {"day": "Thu 19 Nov", "session": "Social Activity (Self organized)", "type": "Social", "start": "10:00", "end": "12:00", "venue": "Various", "groups": "G1, G2, G3, G7", "lead": "", "notes": "Recommendation for Social Activity, departure of scientists & venture people"}, {"day": "Thu 19 Nov", "session": "Afternoon Arrival of Working Group", "type": "Logistics", "start": "14:00", "end": "17:00", "venue": "Swiss Re", "groups": "G5, G6", "lead": "Laura", "notes": "Afternoon ARRIVAL of Working Group, just for Apero. RSVPs for dinner (~15 people)"}, {"day": "Thu 19 Nov", "session": "Working Group Session 1", "type": "Workshop", "start": "08:30", "end": "12:30", "venue": "Swiss Re Forum A", "groups": "G1, G5, G6", "lead": "Carolyn", "notes": "Circle setup, Seminarraum 4 breakout, N~40+Team. Printed name cards."}, {"day": "Thu 19 Nov", "session": "Lunch Thursday", "type": "Lunch", "start": "12:30", "end": "13:30", "venue": "Swiss Re, Foyer", "groups": "G6, G5", "lead": "Carolyn", "notes": "Working group lunch"}, {"day": "Thu 19 Nov", "session": "Working Group Session 2", "type": "Workshop", "start": "14:00", "end": "18:00", "venue": "Swiss Re Forum A", "groups": "G1, G5, G6", "lead": "Carolyn", "notes": "Circle setup, breakouts. Seminarraum 2 for production."}, {"day": "Thu 19 Nov", "session": "Transfer Swiss Re to Belvoir", "type": "Transfer", "start": "17:00", "end": "", "venue": "Swiss Re to Belvoir", "groups": "G6", "lead": "Shubhangi", "notes": "Free time before dinner"}, {"day": "Thu 19 Nov", "session": "Apero Thursday", "type": "Social", "start": "18:00", "end": "19:00", "venue": "Belvoir", "groups": "G5, G6", "lead": "Carolyn", "notes": "Additional bookings Seminarraum 2 for production"}, {"day": "Thu 19 Nov", "session": "Dinner Thursday", "type": "Dinner", "start": "19:30", "end": "22:00", "venue": "Belvoir", "groups": "G1, G5, G6", "lead": "Carolyn", "notes": "Working Group dinner"}, {"day": "Fri 20 Nov", "session": "Transfer FIVE to SwissRe", "type": "Transfer", "start": "08:00", "end": "", "venue": "FIVE to Swiss Re", "groups": "G6", "lead": "Shubhangi", "notes": ""}, {"day": "Fri 20 Nov", "session": "Bad Weather: Transfer Belvoir to SwissRe", "type": "Transfer", "start": "08:30", "end": "", "venue": "Belvoir to Swiss Re", "groups": "G6", "lead": "Shubhangi", "notes": "Bad weather backup"}, {"day": "Fri 20 Nov", "session": "Working Group Session 2 (contd.)", "type": "Workshop", "start": "08:30", "end": "12:30", "venue": "Swiss Re, Forum A", "groups": "G1, G5, G6", "lead": "Carolyn", "notes": "Continuation of Working Group Sessions. Circle setup, breakouts."}, {"day": "Fri 20 Nov", "session": "Lunch Friday", "type": "Lunch", "start": "12:30", "end": "13:30", "venue": "Swiss Re, Foyer", "groups": "G6, G5", "lead": "Carolyn", "notes": ""}, {"day": "Fri 20 Nov", "session": "Transfer: Swiss Re / Belvoir to Airport", "type": "Transfer", "start": "13:30", "end": "", "venue": "Swiss Re / Belvoir", "groups": "G6", "lead": "Shubhangi", "notes": "Departures"}];
+const GROUPS = {"G1": {"name": "Data and Working Group", "description": "Super Seeraver: People participating in all Programs from Data to Gala to Working Group"}, "G2": {"name": "Data", "description": "People participating in Data, Poster and Gala Activities"}, "G3": {"name": "Science, Alumni, CP", "description": "People participating in Poster and Gala Activities"}, "G4": {"name": "Family, Friends, Alumni & CP", "description": "People participating in Gala Activities"}, "G5": {"name": "Working Group", "description": "People participating in Working Group and Gala according to their RSVP"}, "G6": {"name": "Seerave Team", "description": "Team = all and everything"}, "G7": {"name": "Venture", "description": "People participating in board meetings, Venture dinners, Poster Session and Gala Activities"}, "G8": {"name": "Venture & Strategic Partner", "description": "People participating in Venture Dinners, Poster Session and Gala Activities"}};
+
+const select = document.getElementById('participant-select');
+const welcome = document.getElementById('welcome');
+const travelBanner = document.getElementById('travel-banner');
+const profile = document.getElementById('profile');
+const stats = document.getElementById('stats');
+const schedule = document.getElementById('schedule');
+
+// Populate dropdown
+PARTICIPANTS.sort((a, b) => a.name.localeCompare(b.name));
+PARTICIPANTS.forEach(p => {
+  const opt = document.createElement('option');
+  opt.value = p.name;
+  opt.textContent = p.name + ' \u2014 ' + p.institution;
+  select.appendChild(opt);
+});
+
+// URL param — auto-select and hide dropdown for personalised links
+const urlParams = new URLSearchParams(window.location.search);
+const preselected = urlParams.get('p');
+if (preselected) {
+  select.value = preselected;
+  document.querySelector('.selector-bar').style.display = 'none';
+  renderAgenda(preselected);
+} else {
+  welcome.style.display = 'block';
+}
+
+select.addEventListener('change', () => {
+  const name = select.value;
+  if (name) {
+    renderAgenda(name);
+    const url = new URL(window.location);
+    url.searchParams.set('p', name);
+    history.replaceState(null, '', url);
+  } else {
+    welcome.style.display = 'block';
+    travelBanner.style.display = 'none';
+    profile.style.display = 'none';
+    stats.style.display = 'none';
+    schedule.style.display = 'none';
+  }
+});
+
+function renderAgenda(name) {
+  const p = PARTICIPANTS.find(x => x.name === name);
+  if (!p) return;
+
+  welcome.style.display = 'none';
+  travelBanner.style.display = 'block';
+  profile.style.display = 'block';
+  stats.style.display = 'block';
+  schedule.style.display = 'block';
+
+  // Compute participant's actual date range from their sessions
+  const gid = p.group_id;
+  const mySessions = SESSIONS.filter(s => {
+    const groups = s.groups;
+    if (groups.toLowerCase() === 'all') return true;
+    return groups.split(',').map(g => g.trim()).includes(gid);
+  });
+
+  const dayDates = {
+    'Sun 15 Nov': { num: 15, label: '15' },
+    'Mon 16 Nov': { num: 16, label: '16' },
+    'Tue 17 Nov': { num: 17, label: '17' },
+    'Wed 18 Nov': { num: 18, label: '18' },
+    'Thu 19 Nov': { num: 19, label: '19' },
+    'Fri 20 Nov': { num: 20, label: '20' },
+  };
+  const myDays = [...new Set(mySessions.map(s => s.day))].filter(d => dayDates[d]);
+  const myDayNums = myDays.map(d => dayDates[d].num).sort((a, b) => a - b);
+  const firstDay = myDayNums[0] || 15;
+  const lastDay = myDayNums[myDayNums.length - 1] || 20;
+  const dateRange = firstDay === lastDay
+    ? firstDay + ' November'
+    : firstDay + ' \u2013 ' + lastDay + ' November';
+  document.getElementById('header-subtitle').innerHTML =
+    dateRange + ' &nbsp;|&nbsp; Zurich, Switzerland &nbsp;|&nbsp; Personalised Agenda';
+
+  // Travel banner
+  const hasLink = p.travel_link && p.travel_link.trim() !== '';
+  const arrowSvg = '<svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>';
+  if (hasLink) {
+    travelBanner.innerHTML = `
+      <div class="travel-banner-inner">
+        <div class="travel-banner-text">
+          <h3>Travel Booking & Tickets</h3>
+          <p>View your flight confirmations, hotel details, transfer schedule, and travel policy.</p>
+        </div>
+        <a href="${p.travel_link}" target="_blank" class="travel-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          View Travel Details
+        </a>
+      </div>`;
+  } else {
+    travelBanner.innerHTML = `
+      <div class="travel-banner-inner">
+        <div class="travel-banner-text">
+          <h3>Travel Booking & Tickets</h3>
+          <p>Your travel documents are being prepared. You\u2019ll receive a link here once your bookings are confirmed.</p>
+        </div>
+        <span class="travel-pending">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Coming Soon
+        </span>
+      </div>`;
+  }
+
+  // Profile card
+  const groupInfo = GROUPS[p.group_id] || {};
+  profile.innerHTML = `
+    <h2>${p.name}</h2>
+    <span class="group-tag">${p.group_id} \u2014 ${p.group_name}</span>
+    <div class="profile-grid">
+      <div class="profile-item"><div class="label">Institution</div><div class="value">${p.institution}</div></div>
+      <div class="profile-item"><div class="label">Role</div><div class="value">${p.group_detail}</div></div>
+      <div class="profile-item"><div class="label">Days</div><div class="value">${p.programme_days}</div></div>
+      <div class="profile-item"><div class="label">Venues</div><div class="value">${p.venues}</div></div>
+      <div class="profile-item"><div class="label">Room Type</div><div class="value">${p.room_type}</div></div>
+    </div>`;
+
+  // Stats (mySessions already computed above for date range)
+  const days = [...new Set(mySessions.map(s => s.day))];
+  const types = {};
+  mySessions.forEach(s => { types[s.type] = (types[s.type] || 0) + 1; });
+  stats.innerHTML = `<div class="stats-grid">
+    <div class="stat"><div class="num">${mySessions.length}</div><div class="lbl">Sessions</div></div>
+    <div class="stat"><div class="num">${days.length}</div><div class="lbl">Days</div></div>
+    <div class="stat"><div class="num">${types['Workshop'] || 0}</div><div class="lbl">Workshops</div></div>
+    <div class="stat"><div class="num">${(types['Dinner'] || 0) + (types['Social'] || 0)}</div><div class="lbl">Social Events</div></div>
+  </div>`;
+
+  // Schedule grouped by day
+  const byDay = {};
+  const dayOrder = ['Sun 15 Nov', 'Mon 16 Nov', 'Tue 17 Nov', 'Wed 18 Nov', 'Thu 19 Nov', 'Fri 20 Nov'];
+  mySessions.forEach(s => {
+    if (!byDay[s.day]) byDay[s.day] = [];
+    byDay[s.day].push(s);
+  });
+
+  const dayLabels = {
+    'Sun 15 Nov': 'Sunday, 15 November',
+    'Mon 16 Nov': 'Monday, 16 November',
+    'Tue 17 Nov': 'Tuesday, 17 November',
+    'Wed 18 Nov': 'Wednesday, 18 November \u2014 Festivity Day',
+    'Thu 19 Nov': 'Thursday, 19 November',
+    'Fri 20 Nov': 'Friday, 20 November',
+  };
+
+  const greenTypes = ['Workshop', 'Plenary', 'Lunch'];
+
+  let html = '';
+  dayOrder.forEach(day => {
+    const daySessions = byDay[day];
+    if (!daySessions || daySessions.length === 0) return;
+    html += `<div class="day-group">`;
+    html += `<div class="day-header"><span class="day-dot"></span>${dayLabels[day] || day}</div>`;
+    daySessions.forEach(s => {
+      const time = s.end ? s.start + ' \u2013 ' + s.end : s.start;
+      const typeClass = 'type-' + s.type.replace(/[^a-zA-Z]/g, '');
+      const badgeClass = greenTypes.includes(s.type) ? ' green' : '';
+      html += `<div class="session-card ${typeClass}">
+        <div class="session-top">
+          <div class="session-name">${s.session}</div>
+          <div class="session-time">${time}</div>
+        </div>
+        <div class="session-meta">
+          <span class="type-badge${badgeClass}">${s.type}</span>
+          ${s.venue ? '<span>&#x1F4CD; ' + s.venue + '</span>' : ''}
+        </div>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+
+  schedule.innerHTML = html;
+}
+</script>
+</body>
+</html>
