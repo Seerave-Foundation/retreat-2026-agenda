@@ -547,22 +547,10 @@ function renderAgenda(name) {
   // Compute participant's actual date range from their sessions
   const gid = p.group_id;
 
-  // Parse programme_days to allowed day numbers (e.g. "Wednesday" → [18], "Wednesday to Friday" → [18,19,20])
-  const dayNameToNum = { 'sunday':15, 'monday':16, 'tuesday':17, 'wednesday':18, 'thursday':19, 'friday':20, 'saturday':21 };
-  const dayNumToSession = { 15:'Sun 15 Nov', 16:'Mon 16 Nov', 17:'Tue 17 Nov', 18:'Wed 18 Nov', 19:'Thu 19 Nov', 20:'Fri 20 Nov' };
-  let allowedDayNums = null; // null = no restriction
-  if (p.programme_days) {
-    const pd = p.programme_days.toLowerCase().trim();
-    const toMatch = pd.match(/^(\w+)\s+to\s+(\w+)$/);
-    if (toMatch) {
-      const startN = dayNameToNum[toMatch[1]] || 15;
-      const endN = dayNameToNum[toMatch[2]] || 20;
-      allowedDayNums = [];
-      for (let d = startN; d <= endN; d++) allowedDayNums.push(d);
-    } else if (dayNameToNum[pd] !== undefined) {
-      allowedDayNums = [dayNameToNum[pd]];
-    }
-  }
+  // Per-person day overrides for local/day guests (only show specific days)
+  const DAY_OVERRIDES = {
+    "Anna-Marie Harling": { days: ["Wed 18 Nov"], excludeTypes: ["Transfer"] }
+  };
 
   const dayDates = {
     'Sun 15 Nov': { num: 15, label: '15' },
@@ -573,15 +561,16 @@ function renderAgenda(name) {
     'Fri 20 Nov': { num: 20, label: '20' },
   };
 
+  const personOverride = DAY_OVERRIDES[name] || null;
+  const allowedDays = personOverride ? personOverride.days : null;
+  const excludeTypes = personOverride ? (personOverride.excludeTypes || []) : [];
   const mySessions = SESSIONS.filter(s => {
     const groups = s.groups;
-    const groupMatch = groups.toLowerCase() === 'all' ||
-      groups.split(',').map(g => g.trim()).some(g => g === gid || g === gid + ' optional' || g === gid + ' (optional)');
+    if (groups.toLowerCase() === 'all') return allowedDays ? allowedDays.includes(s.day) : true;
+    const groupMatch = groups.split(',').map(g => g.trim()).some(g => g === gid || g === gid + ' optional' || g === gid + ' (optional)');
     if (!groupMatch) return false;
-    // Filter by programme_days if set
-    if (allowedDayNums && dayDates[s.day]) {
-      return allowedDayNums.includes(dayDates[s.day].num);
-    }
+    if (allowedDays && !allowedDays.includes(s.day)) return false;
+    if (excludeTypes.length && excludeTypes.includes(s.type)) return false;
     return true;
   });
   const myDays = [...new Set(mySessions.map(s => s.day))].filter(d => dayDates[d]);
