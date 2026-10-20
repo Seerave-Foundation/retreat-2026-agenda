@@ -471,12 +471,17 @@
   </div>
 
   <div class="travel-banner" id="travel-banner"></div>
+    delete TRAVEL_DATA["Nolwenn Paris"];
+    TRAVEL_DATA["Andrew Almonte"] = {"arrival_date": "Nov 16", "arrival_time": "TBC", "departure_date": "Nov 20", "departure_time": "14:30"};
   <div class="profile-card" id="profile"></div>
   <div class="stats-bar" id="stats"></div>
   <div class="schedule-section" id="schedule"></div>
 </div>
 
 <div class="footer">
+    PARTICIPANTS.push({"name": "Jessica Charloyard", "email": "", "institution": "IGR", "group_detail": "Fellow 2.0: Data Manager", "group_id": "G2", "group_name": "Data", "programme_days": "Monday to Thursday", "venues": "FIVE, Swiss Re", "room_type": "Single", "travel_link": ""});
+    PARTICIPANTS = PARTICIPANTS.filter(p => p.name !== "Nolwenn Paris");
+    PARTICIPANTS.forEach(p => { if (p.name === "Andrew Almonte") { p.programme_days = "Monday to Friday"; p.venues = "FIVE, Swiss Re"; }});
   <div class="footer-line"></div>
   Seerave Foundation &bull; Retreat 2026 &bull; Confidential &bull; <a href="https://seerave.org/privacy-policy/" target="_blank" rel="noopener" style="color: var(--seagreen); text-decoration: none;">Privacy Policy</a>
 </div>
