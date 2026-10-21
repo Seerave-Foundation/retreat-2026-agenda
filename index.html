@@ -745,6 +745,12 @@ function renderAgenda(name) {
     if (!byDay[s.day]) byDay[s.day] = [];
     byDay[s.day].push(s);
   });
+  // Sort sessions within each day by start time
+  Object.values(byDay).forEach(arr => arr.sort((a, b) => {
+    const ta = (a.start || '').replace(/[^0-9:]/g, '');
+    const tb = (b.start || '').replace(/[^0-9:]/g, '');
+    return ta.localeCompare(tb);
+  }));
 
   const dayLabels = {
     'Sun 15 Nov': 'Sunday, 15 November',
