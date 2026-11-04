@@ -811,7 +811,7 @@ function renderAgenda(name) {
       <div class="profile-item"><div class="label">Role</div><div class="value">${p.group_detail}</div></div>
       <div class="profile-item"><div class="label">Days</div><div class="value">${p.programme_days}</div></div>
       <div class="profile-item"><div class="label">Venues</div><div class="value">${(p.venues || '').split(',').map(v => { v = v.trim(); for (const [key, info] of Object.entries(venueLinks)) { if (v.includes(key)) return '<a href="' + info.url + '" target="_blank" rel="noopener" style="color:var(--seagreen);text-decoration:none;border-bottom:1px dotted var(--seagreen);">' + v + '</a>'; } return v; }).join(', ')}</div></div>
-      <div class="profile-item"><div class="label">Room Type</div><div class="value">${p.room_type}</div></div>
+      ${p.venues && p.venues.includes("FIVE") && p.venues.includes("Swiss Re") ? '<div class="profile-item"><div class="label">Hotel Switch</div><div class="value">FIVE → Swiss Re (Wed 18 Nov)</div></div>' : ''}
     </div>`;
 
   // Stats (mySessions already computed above for date range)
