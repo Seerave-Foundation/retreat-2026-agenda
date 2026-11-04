@@ -436,6 +436,9 @@
   .day-header:hover {
     opacity: 0.85;
   }
+  .day-group.celebration .day-header {
+    background: var(--red);
+  }
 
 </style>
 </head>
@@ -852,7 +855,7 @@ function renderAgenda(name) {
   dayOrder.forEach(day => {
     const daySessions = byDay[day];
     if (!daySessions || daySessions.length === 0) return;
-    html += `<div class="day-group">`;
+    html += `<div class="day-group${day === 'Wed 18 Nov' ? ' celebration' : ''}">`;
     html += `<div class="day-header" onclick="this.parentElement.classList.toggle('collapsed')"><span class="day-dot"></span>${dayLabels[day] || day}<span class="day-toggle">&#9660;</span></div>`;
     daySessions.forEach(s => {
       const time = s.end ? s.start + ' \u2013 ' + s.end : s.start;
