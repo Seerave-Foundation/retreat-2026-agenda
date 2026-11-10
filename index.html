@@ -591,7 +591,8 @@ function renderAgenda(name) {
     "Rossella Fontana": { days: ["Wed 18 Nov"] },
     "Eran Segal": { days: ["Wed 18 Nov", "Thu 19 Nov"] },
     "Susan Seo": { excludeTypes: ["Dinner"] },
-    "Helen Bulbeck": { excludeSessions: ["Arrival & Check-in", "Seerave 10 Year Anniversary Retreat - Apéro & Poster Session", "Bar open"] }
+    "Helen Bulbeck": { excludeSessions: ["Arrival & Check-in", "Seerave 10 Year Anniversary Retreat - Apéro & Poster Session", "Bar open"] },
+    "Urvi Shah": { includeDays: ["Wed 18 Nov"] }
   };
 
   const dayDates = {
@@ -607,6 +608,8 @@ function renderAgenda(name) {
   const allowedDays = personOverride ? personOverride.days : null;
   const excludeTypes = personOverride ? (personOverride.excludeTypes || []) : [];
   const excludeSessions = personOverride ? (personOverride.excludeSessions || []) : [];
+  // includeDays: also show the full programme of these days (all groups, no transfers)
+  const includeDays = personOverride ? (personOverride.includeDays || []) : [];
 
   // Per-person extra sessions (shown regardless of group)
   const PERSON_SESSIONS = {
@@ -686,7 +689,7 @@ function renderAgenda(name) {
     const groups = s.groups;
     if (groups.toLowerCase() === 'all') return allowedDays ? allowedDays.includes(s.day) : true;
     const groupMatch = groups.split(',').map(g => g.trim()).some(g => g === gid || g === gid + ' optional' || g === gid + ' (optional)');
-    if (!groupMatch) return false;
+    if (!groupMatch && !(includeDays.includes(s.day) && s.type !== 'Transfer')) return false;
     if (allowedDays && !allowedDays.includes(s.day)) return false;
     if (excludeTypes.length && excludeTypes.includes(s.type)) return false;
     if (excludeSessions.includes(s.session)) return false;
