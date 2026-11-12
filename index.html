@@ -616,6 +616,7 @@ function renderAgenda(name) {
     "Melody Smith": { confirmed: ["Apéro", "Anniversary Celebration Dinner"] },
     "Monika Krzyzanowska": { confirmed: ["Apéro", "Anniversary Celebration Dinner"] },
     "Nadim Ajami": { includeDays: ["Wed 18 Nov"], confirmed: ["Apéro", "Anniversary Celebration Dinner"] },
+    "Oriana Miltiadous": { includeDays: ["Wed 18 Nov"], confirmed: ["Apéro", "Anniversary Celebration Dinner"] },
     "Pamela Ohashi": { confirmed: ["Apéro", "Anniversary Celebration Dinner"] },
     "Philippa Gail Corrie": { confirmed: ["Apéro", "Anniversary Celebration Dinner"] },
     "Pierre-Oliver Gaudreau": { confirmed: ["Apéro", "Anniversary Celebration Dinner"] },
@@ -747,6 +748,7 @@ function renderAgenda(name) {
   const ticketName = name.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_\-]/g, '');
   // Override map for filenames that dont match the auto-generated pattern
   const TICKET_MAP = {
+    "Oriana Miltiadous": "tickets/Oriana_Miltiadous_Ticket.pdf",
     "Andres Cubillos": "tickets/Andres_CubillosRuiz_Ticket.pdf",
     "Andy Futreal": "tickets/Jennifer_McQuade_Philip_Futreal_Ticket_2.pdf",
     "Aurore Matton": "tickets/Aurore_HodeauMatton_Ticket.pdf",
