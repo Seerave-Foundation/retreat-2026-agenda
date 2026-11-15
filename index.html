@@ -265,6 +265,11 @@
     margin-bottom: 1.25rem;
     box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   }
+  .ltree-banner { display:flex; align-items:center; flex-wrap:wrap; gap:.4rem 1rem; background: var(--red); color: var(--white); text-decoration:none; border-radius:8px; padding:.9rem 1.2rem; margin-bottom:1.1rem; box-shadow:0 1px 3px rgba(0,0,0,0.08); }
+  .ltree-banner:hover { background: var(--red-hover); }
+  .ltree-title { font-weight:500; font-size:1rem; }
+  .ltree-sub { font-size:.82rem; opacity:.9; flex:1; }
+  .ltree-arrow { font-weight:500; font-size:.9rem; white-space:nowrap; }
   .stats-grid {
     display: flex;
     gap: 2.5rem;
@@ -974,7 +979,8 @@ function renderAgenda(name) {
   const days = [...new Set(mySessions.map(s => s.day))];
   const types = {};
   mySessions.forEach(s => { types[s.type] = (types[s.type] || 0) + 1; });
-  stats.innerHTML = `<div class="stats-grid">
+  stats.innerHTML = `<a class="ltree-banner" href="https://seerave.org/qr/10ya/programme/" target="_blank" rel="noopener"><span class="ltree-title">All retreat info in one place</span><span class="ltree-sub">Programme and all the important information for the retreat</span><span class="ltree-arrow">Open →</span></a>
+  <div class="stats-grid">
     <div class="stat"><div class="num">${mySessions.length}</div><div class="lbl">Sessions</div></div>
     <div class="stat"><div class="num">${days.length}</div><div class="lbl">Days</div></div>
     <div class="stat"><div class="num">${(types['Session'] || 0) + (types['Workshop'] || 0)}</div><div class="lbl">Sessions</div></div>
