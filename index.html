@@ -280,6 +280,7 @@
   .stat { text-align: center; }
   .stat .num { font-size: 1.75rem; font-weight: 200; color: var(--black); }
   .stat .lbl { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-light); font-weight: 500; }
+  @media (max-width: 600px) { .stats-bar { padding: 1rem 0.75rem; } .stats-grid { gap: 0.25rem; } .stat .lbl { font-size: 0.6rem; letter-spacing: 0.3px; white-space: nowrap; } }
 
   /* ===== SCHEDULE ===== */
   .schedule-section { display: none; }
@@ -983,7 +984,7 @@ function renderAgenda(name) {
   mySessions.forEach(s => { types[s.type] = (types[s.type] || 0) + 1; });
   if (!document.getElementById('ltreeBanner')) stats.insertAdjacentHTML('beforebegin', '<a id="ltreeBanner" class="ltree-banner" href="https://seerave.org/qr/10ya/programme/" target="_blank" rel="noopener"><span class="ltree-title">All retreat info in one place</span><span class="ltree-sub">Programme and all the important information for the retreat</span><span class="ltree-arrow">Open →</span></a>');
   stats.innerHTML = `<div class="stats-grid">
-    <div class="stat"><div class="num">${mySessions.length}</div><div class="lbl">Agenda items</div></div>
+    <div class="stat"><div class="num">${mySessions.length}</div><div class="lbl">Items</div></div>
     <div class="stat"><div class="num">${days.length}</div><div class="lbl">Days</div></div>
     <div class="stat"><div class="num">${(types['Session'] || 0) + (types['Workshop'] || 0)}</div><div class="lbl">Sessions</div></div>
     <div class="stat"><div class="num">${(types['Dinner'] || 0) + (types['Social'] || 0)}</div><div class="lbl">Social Events</div></div>
